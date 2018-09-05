@@ -12,17 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2018_09_04_193423) do
 
-  create_table "albums", force: :cascade do |t|
-    t.integer "artist_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["artist_id"], name: "index_albums_on_artist_id"
-  end
-
   create_table "artists", force: :cascade do |t|
     t.string "artist_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "albums", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_albums_on_artist_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -33,5 +32,8 @@ ActiveRecord::Schema.define(version: 2018_09_04_193423) do
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_songs_on_album_id"
   end
+
+  add_foreign_key "albums", "artists" on_delete :cascade  
+  add_foreign_key "songs", "albums" on_delete :cascade
 
 end
