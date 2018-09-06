@@ -5,13 +5,16 @@ import {
   fetchAlbums,
   fetchSongs,
   saveArtist,
-  editArtist
+  editArtist,
+  deleteArtist,
+  saveAlbum
 } from './services/api';
 import GetArtists from './components/GetArtists';
 import GetAlbums from './components/GetAlbums';
 import GetSongs from './components/GetSongs';
 import CreateArtist from './components/CreateArtist';
 import EditArtist from './components/EditArtist';
+import CreateAlbum from './components/CreateAlbum';
 import Header from './components/Header';
 
 class App extends Component {
@@ -30,6 +33,9 @@ class App extends Component {
     this.createArtist = this.createArtist.bind(this);
     this.artistEdit = this.artistEdit.bind(this);
     this.updateArtist = this.updateArtist.bind(this);
+    this.handleDArtist = this.handleDArtist.bind(this);
+    this.createAlbum = this.createAlbum.bind(this);
+    this.albumCreate = this.albumCreate.bind(this);
   }
   componentDidMount() {
     fetchArtists()
@@ -57,7 +63,20 @@ class App extends Component {
         })
       })
   }
-// to the album's view
+
+  createAlbum(album) {
+    saveAlbum(album)
+      .then(data => fetchAlbums())
+      .then(data => {
+        this.setState({ 
+          albums: data.albums,
+          selectedArtist: '',
+          currentView: 'Home'
+        })
+      })
+  }
+
+  // to the album's view
   selectArtist(artist) {
     this.setState({
       selectedArtist: artist,
@@ -65,11 +84,19 @@ class App extends Component {
     })
   }
 
-// to the edit artist view
-  artistEdit(artist){
+  // to the edit artist view
+  artistEdit(artist) {
     this.setState({
       selectedArtist: artist,
       currentView: 'Edit Artist'
+    })
+  }
+
+  // to the add album view
+  albumCreate(artist) {
+    this.setState({
+      selectedArtist: artist,
+      currentView: 'Create Album'
     })
   }
 
@@ -80,15 +107,29 @@ class App extends Component {
     })
   }
 
-  updateArtist(artist){
+  updateArtist(artist) {
     editArtist(artist)
-    .then(data => fetchArtists())
-    .then(data => {
-      this.setState ({
-        currentView: 'Home',
-        artists: data.artists
+      .then(data => fetchArtists())
+      .then(data => {
+        this.setState({
+          currentView: 'Home',
+          artists: data.artists
+        })
       })
-    })
+  }
+
+  handleDArtist(id) {
+    deleteArtist(id)
+      .then(res => {
+        fetchArtists()
+          .then(data => {
+            this.setState({
+              currentView: 'Home',
+              artists: data.artists
+            })
+          })
+
+      })
   }
 
   whichToRender() {
@@ -98,7 +139,7 @@ class App extends Component {
     switch (currentView) {
       case 'Home':
         return <GetArtists
-          key={this.state.artists.id}
+          key={artists.id}
           artistEdit={this.artistEdit}
           artists={artists}
           selectArtist={this.selectArtist}
@@ -106,16 +147,18 @@ class App extends Component {
         break;
       case 'Albums':
         const artist = artists.find(artist => artist.id === selectedArtist.id);
-        return <GetAlbums key={this.state.albums.id}
+        return <GetAlbums key={albums.id}
           selectedArtist={selectedArtist}
           albums={albums}
           artist={artist}
           selectAlbum={this.selectAlbum}
+          albumCreate={this.albumCreate}
         />;
         break;
       case 'Songs':
         const album = albums.find(album => album.id === selectedAlbum.id);
-        return <GetSongs key={this.state.songs.id}
+        return <GetSongs key={songs.id}
+          selectedArtist={selectedArtist}
           selectedAlbum={selectedAlbum}
           songs={songs}
           album={album}
@@ -127,12 +170,19 @@ class App extends Component {
         />;
         break;
       case 'Edit Artist':
-      const edits = artists.find(artist => artist.id === selectedArtist.id);
-      return <EditArtist 
-        onSubmit={this.updateArtist}
-        artists={edits}
-      />;
-      break
+        const edits = artists.find(artist => artist.id === selectedArtist.id);
+        return <EditArtist
+          onSubmit={this.updateArtist}
+          artists={edits}
+          handleDArtist={this.handleDArtist}
+        />;
+        break;
+      case 'Create Album':
+        return <CreateAlbum
+          onSubmit={this.createAlbum}
+          selectedArtist={selectedArtist}
+        />;
+        break
     }
   }
 
@@ -150,7 +200,7 @@ class App extends Component {
     return (
       <div>
         <Header onClick={this.handleClick.bind(this)}
-          links={links}/>
+          links={links} />
         {this.whichToRender()}
       </div>
     );

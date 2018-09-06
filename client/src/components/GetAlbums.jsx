@@ -4,17 +4,29 @@ function GetAlbums(props) {
     return(
         <div>
             <h1>{props.selectedArtist.artist_name}</h1>
-            {
-                props.selectedArtist.albums.map(album => (
-                    <ul key={album.id}>
-                        <li>{album.album_name}</li>
-                        <button onClick={(e) => {
+            <button onClick={(e) => {
+                        e.preventDefault();
+                        props.albumCreate(props.artist.id)
+                    }}>Add Album</button>
+            {props.selectedArtist.id && (
+        <div>
+          {props.albums.map((album) => {
+            if (props.selectedArtist.id === album.artist_id) {
+              return (
+                  <div key={album.id}>
+                    <p>{album.album_name}</p>
+                    <button onClick={(e) => {
                         e.preventDefault();
                         props.selectAlbum(album)
                     }}>show songs</button>
-                    </ul>
-                ))
+                  </div>
+              )
             }
+          })
+          }
+
+        </div>
+      )}
         </div>
     )
 }

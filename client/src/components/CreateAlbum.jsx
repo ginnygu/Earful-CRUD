@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class EditArtist extends Component {
+class CreateAlbum extends Component {
     constructor(props) {
         super(props);
-        const { artists } = props;
         this.state = {
-            artist_name: artists.artist_name
+            album_name: '',
+            artist_id: this.props.selectedArtist
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -21,22 +21,17 @@ class EditArtist extends Component {
 
     handleSubmit(e){
         e.preventDefault();
-        const data = {
-            artist_name: this.state.artist_name,
-            id: this.props.artists.id
-        }
-        this.props.onSubmit(data);
+        this.props.onSubmit(this.state);
     }
 
     render(){
         return(
             <div>
-                <h1>Edit Artist</h1>
+                <h1>Add Album</h1>
                 <form onSubmit={this.handleSubmit}>
-                <label>Artist Name:</label>
-                    <input type="text" name="artist_name" value={this.state.artist_name} onChange={this.handleChange} />
+                <label>Album Name:</label>
+                    <input type="text" name="album_name" value={this.state.album_name} onChange={this.handleChange} />
                     <button type="submit">Submit</button>
-                    <button onClick={() => this.props.handleDArtist(this.props.artists.id)}>Delete</button>
                 </form>
             </div>
         )
@@ -46,4 +41,4 @@ class EditArtist extends Component {
 }
 
 
-export default EditArtist;
+export default CreateAlbum;

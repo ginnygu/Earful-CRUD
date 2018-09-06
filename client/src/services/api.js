@@ -53,12 +53,25 @@ function deleteArtist(id){
     return fetch(`${BASE_URL}/artists/${id}`, opts)
 }
 
+//edit album
+function saveAlbum(album){
+    const opts ={
+        method:'POST',
+        body: JSON.stringify(album),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }
+    return fetch(`${BASE_URL}/albums`, opts)
+    .then(res => res.json())
+}
 export {
     fetchArtists,
     fetchAlbums,
     fetchSongs,
     saveArtist,
     editArtist,
-    deleteArtist
+    deleteArtist,
+    saveAlbum
 
 }

@@ -14,7 +14,7 @@ class AlbumsController < ApplicationController
 
     skip_before_action :verify_authenticity_token
     def create 
-        @album = Artist.find(params[:artist_id]).albums.create(albums_params)
+        @album = Album.create(albums_params)
         render json: { album: @album }
     end
 
