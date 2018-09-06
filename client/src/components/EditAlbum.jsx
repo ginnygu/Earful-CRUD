@@ -37,7 +37,7 @@ class EditAlbum extends Component {
                 <label>Album Name:</label>
                     <input type="text" name="album_name" value={this.state.album_name} onChange={this.handleChange} />
                     <button type="submit">Submit</button>
-                    <button onClick={() => this.props.handleDAlbum(this.props.album.id)}>Delete</button>
+                    <button onClick={() => this.props.handleDAlbum(this.props.selectedAlbum.id)}>Delete</button>
                 </form>
             </div>
         )

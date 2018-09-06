@@ -41,6 +41,7 @@ class App extends Component {
     this.albumCreate = this.albumCreate.bind(this);
     this.updateAlbum = this.updateAlbum.bind(this);
     this.updatingAlbum = this.updatingAlbum.bind(this);
+    this.handleDAlbum = this.handleDAlbum.bind(this);
   }
   componentDidMount() {
     fetchArtists()
@@ -155,6 +156,19 @@ class App extends Component {
         })
       })
   }
+  handleDAlbum(id) {
+    deleteAlbum(id)
+      .then(res => {
+        fetchAlbums()
+          .then(data => {
+            this.setState({
+              currentView: 'Home',
+              albums: data.albums
+            })
+          })
+
+      })
+  }
 
   
 
@@ -219,6 +233,7 @@ class App extends Component {
       onSubmit={this.updateAlbum}
       albums={albums}
       albumEdit={albumEdit}
+      handleDAlbum={this.handleDAlbum}
       />;
       break;
     }
