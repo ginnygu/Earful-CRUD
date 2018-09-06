@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import { fetchArtists, fetchAlbums, fetchSongs } from './services/api';
+import {
+  fetchArtists,
+  fetchAlbums,
+  fetchSongs,
+  saveArtist,
+  editArtist
+} from './services/api';
 import GetArtists from './components/GetArtists';
 import GetAlbums from './components/GetAlbums';
 import GetSongs from './components/GetSongs';
+import CreateArtist from './components/CreateArtist';
+import EditArtist from './components/EditArtist';
+import Header from './components/Header';
 
 class App extends Component {
   constructor(props) {
@@ -14,10 +23,13 @@ class App extends Component {
       songs: [],
       selectedArtist: '',
       selectedAlbum: '',
-      currentView: 'Landing'
+      currentView: 'Home'
     }
-    this.selectArtist = this.selectArtist.bind(this)
-    this.selectAlbum = this.selectAlbum.bind(this)
+    this.selectArtist = this.selectArtist.bind(this);
+    this.selectAlbum = this.selectAlbum.bind(this);
+    this.createArtist = this.createArtist.bind(this);
+    this.artistEdit = this.artistEdit.bind(this);
+    this.updateArtist = this.updateArtist.bind(this);
   }
   componentDidMount() {
     fetchArtists()
@@ -35,10 +47,29 @@ class App extends Component {
 
   }
 
+  createArtist(artist) {
+    saveArtist(artist)
+      .then(data => fetchArtists())
+      .then(data => {
+        this.setState({
+          currentView: 'Home',
+          artists: data.artists
+        })
+      })
+  }
+// to the album's view
   selectArtist(artist) {
     this.setState({
       selectedArtist: artist,
       currentView: 'Albums'
+    })
+  }
+
+// to the edit artist view
+  artistEdit(artist){
+    this.setState({
+      selectedArtist: artist,
+      currentView: 'Edit Artist'
     })
   }
 
@@ -49,14 +80,26 @@ class App extends Component {
     })
   }
 
+  updateArtist(artist){
+    editArtist(artist)
+    .then(data => fetchArtists())
+    .then(data => {
+      this.setState ({
+        currentView: 'Home',
+        artists: data.artists
+      })
+    })
+  }
+
   whichToRender() {
     const { currentView } = this.state;
     const { artists, selectedArtist, albums, selectedAlbum, songs } = this.state;
 
     switch (currentView) {
-      case 'Landing':
+      case 'Home':
         return <GetArtists
           key={this.state.artists.id}
+          artistEdit={this.artistEdit}
           artists={artists}
           selectArtist={this.selectArtist}
         />;
@@ -72,20 +115,42 @@ class App extends Component {
         break;
       case 'Songs':
         const album = albums.find(album => album.id === selectedAlbum.id);
-        const fil = songs.filter(song => song.album_id === selectedAlbum.id);
         return <GetSongs key={this.state.songs.id}
           selectedAlbum={selectedAlbum}
           songs={songs}
           album={album}
-          fil={fil}
         />;
         break;
+      case 'Create Artist':
+        return <CreateArtist
+          onSubmit={this.createArtist}
+        />;
+        break;
+      case 'Edit Artist':
+      const edits = artists.find(artist => artist.id === selectedArtist.id);
+      return <EditArtist 
+        onSubmit={this.updateArtist}
+        artists={edits}
+      />;
+      break
     }
   }
 
+  handleClick(link) {
+    this.setState({
+      currentView: link
+    });
+  }
+
   render() {
+    const links = [
+      'Home',
+      'Create Artist'
+    ];
     return (
       <div>
+        <Header onClick={this.handleClick.bind(this)}
+          links={links}/>
         {this.whichToRender()}
       </div>
     );

@@ -12,6 +12,10 @@ function GetArtists(props){
                         e.preventDefault();
                         props.selectArtist(artist)
                     }}>show albums</button>
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        props.artistEdit(artist)
+                    }}>Edit Artist</button>
                 </ul>
 
             ))

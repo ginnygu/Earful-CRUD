@@ -32,10 +32,10 @@ class SongsController < ApplicationController
     private
     def songs_params
         params
-        .require(:data)
-        .require(:attributes)
         .permit(
-            :song_name
+            :song_name,
+            :song_url,
+            :album_id
         )
 
     end
