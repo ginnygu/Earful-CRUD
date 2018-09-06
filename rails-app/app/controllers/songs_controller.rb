@@ -15,7 +15,7 @@ class SongsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def create
-        @song = Album.find(params[:album_id]).songs.create(songs_params)
+        @song = Song.create(songs_params)
         render json: { song: @song }
     end
     

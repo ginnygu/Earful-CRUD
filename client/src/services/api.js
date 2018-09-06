@@ -78,12 +78,25 @@ function editAlbum(album){
     return fetch(`${BASE_URL}/albums/${album.id}`, opts)
     .then(res => res.json());
 }
-
+//delete album
 function deleteAlbum(id){
     const opts = {
         method: 'DELETE',
     }
     return fetch(`${BASE_URL}/albums/${id}`, opts)
+}
+
+//create song
+function saveSong(song){
+    const opts ={
+        method:'POST',
+        body: JSON.stringify(song),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }
+    return fetch(`${BASE_URL}/songs`, opts)
+    .then(res => res.json())
 }
 
 export {
@@ -95,6 +108,7 @@ export {
     deleteArtist,
     saveAlbum,
     editAlbum,
-    deleteAlbum
+    deleteAlbum,
+    saveSong
 
 }
