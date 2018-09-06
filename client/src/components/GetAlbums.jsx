@@ -17,6 +17,10 @@ function GetAlbums(props) {
                     <p>{album.album_name}</p>
                     <button onClick={(e) => {
                         e.preventDefault();
+                        props.updatingAlbum(album)
+                    }}>Edit Album</button>
+                    <button onClick={(e) => {
+                        e.preventDefault();
                         props.selectAlbum(album)
                     }}>show songs</button>
                   </div>

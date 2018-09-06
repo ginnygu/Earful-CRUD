@@ -53,7 +53,7 @@ function deleteArtist(id){
     return fetch(`${BASE_URL}/artists/${id}`, opts)
 }
 
-//edit album
+//create album
 function saveAlbum(album){
     const opts ={
         method:'POST',
@@ -65,6 +65,27 @@ function saveAlbum(album){
     return fetch(`${BASE_URL}/albums`, opts)
     .then(res => res.json())
 }
+
+//edit album
+function editAlbum(album){
+    const opts= {
+        method: 'PUT',
+        body: JSON.stringify(album),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    return fetch(`${BASE_URL}/albums/${album.id}`, opts)
+    .then(res => res.json());
+}
+
+function deleteAlbum(id){
+    const opts = {
+        method: 'DELETE',
+    }
+    return fetch(`${BASE_URL}/albums/${id}`, opts)
+}
+
 export {
     fetchArtists,
     fetchAlbums,
@@ -72,6 +93,8 @@ export {
     saveArtist,
     editArtist,
     deleteArtist,
-    saveAlbum
+    saveAlbum,
+    editAlbum,
+    deleteAlbum
 
 }
