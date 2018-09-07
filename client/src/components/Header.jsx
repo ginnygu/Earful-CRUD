@@ -5,10 +5,10 @@ function Header(props) {
     return(
         <div>
             {links.map(link => {
-                return <button
+                return <nav
                 key={link}
                 onClick={() => props.onClick(link)}>
-                {link}</button>
+                {link}</nav>
             })}
         </div>
     )

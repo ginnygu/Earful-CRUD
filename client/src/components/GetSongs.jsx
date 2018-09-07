@@ -17,7 +17,7 @@ function GetSongs(props) {
                     <li>
                     {song.song_name}
                     </li>
-                    <audio src={song.song_url}></audio>
+                    <audio controls src={song.song_url}></audio>
                   </ul>
               )
             }

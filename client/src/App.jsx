@@ -128,7 +128,7 @@ class App extends Component {
       .then(data => fetchAlbums())
       .then(data => {
         this.setState({
-          albums: data.albums,
+          albums: data,
           selectedArtist: '',
           currentView: 'Home'
         })
@@ -156,7 +156,7 @@ class App extends Component {
       .then(data => fetchAlbums())
       .then(data => {
         this.setState({
-          currentView: 'Home',
+          currentView: 'Albums',
           albums: data.albums
         })
       })
