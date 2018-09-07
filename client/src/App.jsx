@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import 'bulma/css/bulma.css';
+import 'font-awesome/css/font-awesome.min.css'
 import './App.css';
 import GetArtists from './components/GetArtists';
 import GetAlbums from './components/GetAlbums';
@@ -7,8 +9,10 @@ import CreateArtist from './components/CreateArtist';
 import EditArtist from './components/EditArtist';
 import CreateAlbum from './components/CreateAlbum';
 import EditAlbum from './components/EditAlbum';
-import CreateSong from './components/CreateSong'
+import CreateSong from './components/CreateSong';
+import EditSong from './components/EditSong';
 import Header from './components/Header';
+import Home from './components/Home';
 import {
   fetchArtists,
   fetchAlbums,
@@ -19,7 +23,9 @@ import {
   saveAlbum,
   editAlbum,
   deleteAlbum,
-  saveSong
+  saveSong,
+  editSong,
+  deleteSong
 } from './services/api';
 
 class App extends Component {
@@ -31,8 +37,9 @@ class App extends Component {
       songs: [],
       selectedArtist: '',
       selectedAlbum: '',
-      currentView: 'Home'
-    }
+      currentView: 'Home',
+      selectedSong: ''
+    };
     this.selectArtist = this.selectArtist.bind(this);
     this.selectAlbum = this.selectAlbum.bind(this);
     this.createArtist = this.createArtist.bind(this);
@@ -46,245 +53,322 @@ class App extends Component {
     this.handleDAlbum = this.handleDAlbum.bind(this);
     this.createSong = this.createSong.bind(this);
     this.songCreate = this.songCreate.bind(this);
+    this.updateSong = this.updateSong.bind(this);
+    this.selectSong = this.selectSong.bind(this);
+    this.handleDSong = this.handleDSong.bind(this);
   }
+
   componentDidMount() {
     fetchArtists()
-      .then(data => {
-        this.setState({ artists: data.artists })
-      })
+      .then((data) => {
+        this.setState({ artists: data.artists });
+      });
     fetchAlbums()
-      .then(data => {
-        this.setState({ albums: data.albums })
-      })
+      .then((data) => {
+        this.setState({ albums: data.albums });
+      });
     fetchSongs()
-      .then(data => {
-        this.setState({ songs: data.songs })
-      })
-
+      .then((data) => {
+        this.setState({ songs: data.songs });
+      });
   }
 
   createArtist(artist) {
     saveArtist(artist)
       .then(data => fetchArtists())
-      .then(data => {
+      .then((data) => {
         this.setState({
-          currentView: 'Home',
-          artists: data.artists
-        })
-      })
+          currentView: 'Artists',
+          artists: data.artists,
+        });
+      });
   }
 
   // to the album's view
   selectArtist(artist) {
     this.setState({
       selectedArtist: artist,
-      currentView: 'Albums'
-    })
+      currentView: 'Albums',
+    });
   }
 
   // to the edit artist view
   artistEdit(artist) {
     this.setState({
       selectedArtist: artist,
-      currentView: 'Edit Artist'
-    })
+      currentView: 'Edit Artist',
+    });
   }
 
   updateArtist(artist) {
     editArtist(artist)
       .then(data => fetchArtists())
-      .then(data => {
+      .then((data) => {
         this.setState({
-          currentView: 'Home',
-          artists: data.artists
-        })
-      })
+          currentView: 'Artists',
+          artists: data.artists,
+        });
+      });
   }
 
   handleDArtist(id) {
     deleteArtist(id)
-      .then(res => {
+      .then((res) => {
         fetchArtists()
-          .then(data => {
+          .then((data) => {
             this.setState({
-              currentView: 'Home',
-              artists: data.artists
-            })
-          })
-
-      })
+              currentView: 'Artists',
+              artists: data.artists,
+            });
+          });
+      });
   }
 
   // to the add album view
   albumCreate(artist) {
     this.setState({
       selectedArtist: artist,
-      currentView: 'Create Album'
-    })
+      currentView: 'Create Album',
+    });
   }
 
   createAlbum(album) {
     saveAlbum(album)
       .then(data => fetchAlbums())
-      .then(data => {
+      .then((data) => {
         this.setState({
-          albums: data,
+          albums: data.albums,
           selectedArtist: '',
-          currentView: 'Home'
-        })
-      })
+          currentView: 'Artists',
+        });
+      });
   }
 
-  //to the edit album view
+  // to the edit album view
   updatingAlbum(album) {
     this.setState({
       selectedAlbum: album,
-      currentView: 'Edit Album'
-    })
+      currentView: 'Edit Album',
+    });
   }
 
   selectAlbum(album) {
     this.setState({
       selectedAlbum: album,
-      currentView: 'Songs'
-    })
+      currentView: 'Songs',
+    });
   }
 
 
   updateAlbum(album) {
     editAlbum(album)
       .then(data => fetchAlbums())
-      .then(data => {
+      .then((data) => {
         this.setState({
           currentView: 'Albums',
-          albums: data.albums
-        })
-      })
+          albums: data.albums,
+        });
+      });
   }
+
   handleDAlbum(id) {
     deleteAlbum(id)
-      .then(res => {
+      .then((res) => {
         fetchAlbums()
-          .then(data => {
+          .then((data) => {
             this.setState({
               currentView: 'Albums',
-              albums: data.albums
-            })
-          })
-
-      })
+              albums: data.albums,
+            });
+          });
+      });
   }
-  //to create song
+
+  // to create song
   songCreate(album) {
     this.setState({
       selectedAlbum: album,
-      currentView: 'Create Song'
-    })
+      currentView: 'Create Song',
+    });
   }
 
   createSong(song) {
     saveSong(song)
       .then(data => fetchSongs())
-      .then(data => {
+      .then((data) => {
         this.setState({
           songs: data.songs,
           selectedAlbum: '',
-          currentView: 'Home'
+          currentView: 'Home',
+        });
+      });
+  }
+
+  updateSong(song) {
+    editSong(song)
+      .then(data => fetchSongs())
+      .then((data) => {
+        this.setState({
+          songs: data.songs,
+          currentView: 'Songs'
         })
       })
   }
+  selectSong(song) {
+    this.setState({
+      selectedSong: song,
+      currentView: 'Edit Song',
+    });
+  }
 
+  handleDSong(id) {
+    deleteSong(id)
+      .then((res) => {
+        fetchSongs()
+          .then((data) => {
+            this.setState({
+              currentView: 'Songs',
+              songs: data.songs,
+            });
+          });
+      });
+  }
 
 
   whichToRender() {
     const { currentView } = this.state;
-    const { artists, selectedArtist, albums, selectedAlbum, songs } = this.state;
+    const {
+      artists,
+      selectedArtist,
+      albums,
+      selectedAlbum,
+      songs,
+      selectedSong
+    } = this.state;
 
     switch (currentView) {
-      case 'Home':
-        return <GetArtists
-          key={artists.id}
-          artistEdit={this.artistEdit}
-          artists={artists}
-          selectArtist={this.selectArtist}
-        />;
+      case 'Artists':
+        return (
+          <GetArtists
+            key={artists.id}
+            artistEdit={this.artistEdit}
+            artists={artists}
+            selectArtist={this.selectArtist}
+          />
+        );
         break;
       case 'Albums':
         const artist = artists.find(artist => artist.id === selectedArtist.id);
-        return <GetAlbums key={albums.id}
-          selectedArtist={selectedArtist}
-          albums={albums}
-          artist={artist}
-          selectAlbum={this.selectAlbum}
-          albumCreate={this.albumCreate}
-          selectedAlbum={selectedAlbum}
-          updatingAlbum={this.updatingAlbum}
-        />;
+        return (
+          <GetAlbums
+            key={albums.id}
+            selectedArtist={selectedArtist}
+            albums={albums}
+            artist={artist}
+            selectAlbum={this.selectAlbum}
+            albumCreate={this.albumCreate}
+            selectedAlbum={selectedAlbum}
+            updatingAlbum={this.updatingAlbum}
+          />
+        );
         break;
       case 'Songs':
         const album = albums.find(album => album.id === selectedAlbum.id);
-        return <GetSongs key={songs.id}
-          selectedArtist={selectedArtist}
-          selectedAlbum={selectedAlbum}
-          songs={songs}
-          album={album}
-          songCreate={this.songCreate}
-        />;
+        return (
+          <GetSongs
+            key={songs.id}
+            selectedArtist={selectedArtist}
+            selectedAlbum={selectedAlbum}
+            songs={songs}
+            album={album}
+            songCreate={this.songCreate}
+            selectSong={this.selectSong}
+          />
+        );
         break;
-      case 'Create Artist':
-        return <CreateArtist
-          onSubmit={this.createArtist}
-        />;
+      case 'Add Artist':
+        return (
+          <CreateArtist
+            onSubmit={this.createArtist}
+          />
+        );
         break;
       case 'Edit Artist':
         const edits = artists.find(artist => artist.id === selectedArtist.id);
-        return <EditArtist
-          onSubmit={this.updateArtist}
-          artists={edits}
-          handleDArtist={this.handleDArtist}
-        />;
+        return (
+          <EditArtist
+            onSubmit={this.updateArtist}
+            artists={edits}
+            handleDArtist={this.handleDArtist}
+          />
+        );
         break;
       case 'Create Album':
-        return <CreateAlbum
-          onSubmit={this.createAlbum}
-          selectedArtist={selectedArtist}
-        />;
+        return (
+          <CreateAlbum
+            onSubmit={this.createAlbum}
+            selectedArtist={selectedArtist}
+          />
+        );
         break;
       case 'Edit Album':
         const albumEdit = albums.find(album => album.id === selectedAlbum.id);
-        return <EditAlbum
-          selectedAlbum={selectedAlbum}
-          onSubmit={this.updateAlbum}
-          albums={albums}
-          albumEdit={albumEdit}
-          handleDAlbum={this.handleDAlbum}
-        />;
+        return (
+          <EditAlbum
+            selectedAlbum={selectedAlbum}
+            onSubmit={this.updateAlbum}
+            albums={albums}
+            albumEdit={albumEdit}
+            handleDAlbum={this.handleDAlbum}
+          />
+        );
         break;
       case 'Create Song':
-        return <CreateSong
-        onSubmit={this.createSong}
-        selectedAlbum={selectedAlbum}
-        />;
-        break
+        return (
+          <CreateSong
+            onSubmit={this.createSong}
+            selectedAlbum={selectedAlbum}
+          />
+        );
+        break;
+      case 'Home':
+        return (
+          <Home />
+        );
+        break;
+      case 'Edit Song':
+      const song = songs.find(song => song.id === selectedSong.id);
+        return (
+          <EditSong
+          onSubmit={this.updateSong}
+          selectedSong={selectedSong}
+          songs={song}
+          selectedAlbum={selectedAlbum}
+          handleDSong={this.handleDSong}
+          />
+        )
 
     }
   }
 
   handleClick(link) {
     this.setState({
-      currentView: link
+      currentView: link,
     });
   }
 
   render() {
     const links = [
       'Home',
-      'Create Artist'
+      'Artists',
+      'Add Artist',
     ];
     return (
       <div>
-        <Header onClick={this.handleClick.bind(this)}
-          links={links} />
+        <Header
+          onClick={this.handleClick.bind(this)}
+          links={links}
+        />
         {this.whichToRender()}
       </div>
     );

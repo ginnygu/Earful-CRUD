@@ -2,14 +2,16 @@ import React from 'react';
 
 function Header(props) {
     const { links } = props;
-    return(
-        <div>
-            {links.map(link => {
-                return <nav
-                key={link}
-                onClick={() => props.onClick(link)}>
-                {link}</nav>
-            })}
+    return (
+        <div className="container">
+            <div className="hero-body tabs is-centered">
+                {links.map(link => {
+                    return <ul><li><a
+                        key={link}
+                        onClick={() => props.onClick(link)}>
+                        {link}</a></li></ul>
+                })}
+            </div>
         </div>
     )
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class CreateSong extends Component {
+class EditSong extends Component {
     constructor(props) {
         super(props);
+        const { songs } = props;
         this.state = {
-            song_name: '',
-            song_url: '',
+            song_name: songs.song_name,
             album_id: this.props.selectedAlbum
 
         };
@@ -13,28 +13,31 @@ class CreateSong extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e) {
+    handleChange(e){
         const { name, value } = e.target;
         this.setState({
             [name]: value
         });
     }
 
-    handleSubmit(e) {
+    handleSubmit(e){
         e.preventDefault();
-        this.props.onSubmit(this.state);
+        const data = {
+            song_name: this.state.song_name,
+            id: this.props.selectedSong.id
+        }
+        this.props.onSubmit(data);
     }
 
-    render() {
-        return (
+    render(){
+        return(
             <div>
-                <h1>Add Song</h1>
+                <h1>Edit Song</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <label>Song Name:</label>
+                <label>Album Name:</label>
                     <input type="text" name="song_name" value={this.state.song_name} onChange={this.handleChange} />
-                    <label>Song:</label>
-                    <input type="text" name="song_url" value={this.state.song_url} onChange={this.handleChange}/>
                     <button className="button" type="submit">Submit</button>
+                    <button className="button" onClick={() => this.props.handleDSong(this.props.selectedSong.id)}>Delete</button>
                 </form>
             </div>
         )
@@ -44,4 +47,4 @@ class CreateSong extends Component {
 }
 
 
-export default CreateSong;
+export default EditSong;

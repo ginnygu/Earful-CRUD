@@ -1,28 +1,15 @@
-.App {
-  text-align: center;
+body{
+  background: url('./images/bg.jpeg')fixed;
+  height: 100vh;
+  width: 100vw;
+}
+.song-list{
+  margin: 1em;
+}
+.button{
+  background-color: transparent;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.album-name{
+  justify-content: space-around;
 }
