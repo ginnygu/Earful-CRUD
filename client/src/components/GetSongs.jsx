@@ -20,7 +20,8 @@ function GetSongs(props) {
                                     <p>{song.song_name}</p> <br />
                                     <div className="song-list">
                                         <audio controls src={song.song_url}></audio><br/>
-                                        <button onClick={(e) => {
+                                        <button 
+                                            onClick={(e) => {
                                             e.preventDefault();
                                             props.selectSong(song)
                                         }}>Edit Song Name</button>
