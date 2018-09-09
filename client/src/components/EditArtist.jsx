@@ -30,13 +30,13 @@ class EditArtist extends Component {
 
     render(){
         return(
-            <div>
-                <h1>Edit Artist</h1>
-                <form onSubmit={this.handleSubmit}>
-                <label>Artist Name:</label>
+            <div className="container">
+                <span className="edit-subtitle">Edit Artist</span>
+                <button className="button button-size" onClick={() => this.props.handleDArtist(this.props.artists.id)}>Delete</button>
+                <form className="form" onSubmit={this.handleSubmit}>
+                <label>Artist Name:</label><br/>
                     <input type="text" name="artist_name" value={this.state.artist_name} onChange={this.handleChange} />
-                    <button type="submit">Submit</button>
-                    <button onClick={() => this.props.handleDArtist(this.props.artists.id)}>Delete</button>
+                    <button className="button button-size" type="submit">Submit</button>
                 </form>
             </div>
         )

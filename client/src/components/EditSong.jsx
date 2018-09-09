@@ -31,13 +31,13 @@ class EditSong extends Component {
 
     render(){
         return(
-            <div>
-                <h1>Edit Song</h1>
-                <form onSubmit={this.handleSubmit}>
-                <label>Album Name:</label>
+            <div className="container">
+                <span className="edit-subtitle">Edit Song</span>
+                <button className="button button-size" onClick={() => this.props.handleDSong(this.props.selectedSong.id)}>Delete</button>
+                <form className="form" onSubmit={this.handleSubmit}>
+                <label>Album Name:</label><br/>
                     <input type="text" name="song_name" value={this.state.song_name} onChange={this.handleChange} />
-                    <button className="button" type="submit">Submit</button>
-                    <button className="button" onClick={() => this.props.handleDSong(this.props.selectedSong.id)}>Delete</button>
+                    <button className="button button-size" type="submit">Submit</button>
                 </form>
             </div>
         )

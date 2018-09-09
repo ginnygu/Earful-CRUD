@@ -26,12 +26,12 @@ class CreateAlbum extends Component {
 
     render(){
         return(
-            <div className="container has-text-centered">
-                <h1 className="title">Add Album</h1>
-                <form onSubmit={this.handleSubmit}>
-                <label>Album Name:</label>
+            <div className="container">
+                <h1 className="edit-subtitle">Add Album</h1>
+                <form  className="form" onSubmit={this.handleSubmit}>
+                <label>Album Name:</label><br/>
                     <input type="text" name="album_name" value={this.state.album_name} onChange={this.handleChange} />
-                    <button className="button" type="submit">Submit</button>
+                    <button className="button button-size" type="submit">Submit</button>
                 </form>
             </div>
         )

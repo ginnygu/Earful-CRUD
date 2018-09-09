@@ -7,9 +7,6 @@ class ArtistsController < ApplicationController
         render json: { artist: Artist.find(params[:id]) }, include: :albums
     end
 
-    #fixes the error InvalidAuthenticityToken error when POST is used
-    skip_before_action :verify_authenticity_token
-
     def create
         @artist = Artist.create(artists_params)
         render json: { artist: @artist}

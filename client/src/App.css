@@ -4,7 +4,7 @@ body{
   width: 100vw;
 }
 .song-list{
-  margin: 1em;
+  margin: 2.8em;
 }
 .button{
   background-color: transparent;
@@ -13,3 +13,17 @@ body{
 .album-name{
   justify-content: space-around;
 }
+
+.edit-subtitle{
+  font-size: 28px;
+}
+
+.form{
+  padding-top: 1em;
+  padding-left: 1em;
+}
+
+.button-size{
+  font-size: 12px;
+}
+

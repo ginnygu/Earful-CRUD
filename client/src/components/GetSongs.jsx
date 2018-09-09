@@ -16,15 +16,15 @@ function GetSongs(props) {
                     {props.songs.map((song) => {
                         if (props.selectedAlbum.id === song.album_id) {
                             return (
-                                <div className="" key={song.id}>
-                                    <p>{song.song_name}</p> <br />
-                                    <div className="song-list">
-                                        <audio controls src={song.song_url}></audio><br/>
-                                        <button 
+                                <div key={song.id}>
+                                    <span className="edit-subtitle">{song.song_name}</span>
+                                    <button className="button button-size"
                                             onClick={(e) => {
                                             e.preventDefault();
                                             props.selectSong(song)
-                                        }}>Edit Song Name</button>
+                                        }}>Edit Song Name</button><br/>
+                                    <div className="song-list">
+                                        <audio controls src={song.song_url}></audio><br/>
                                     </div>
                                 </div>
                             )

@@ -31,13 +31,13 @@ class EditAlbum extends Component {
 
     render(){
         return(
-            <div>
-                <h1>Edit Album</h1>
-                <form onSubmit={this.handleSubmit}>
-                <label>Album Name:</label>
+            <div className="container">
+                <span className="edit-subtitle">Edit Album</span>
+                <button  className="button button-size" onClick={() => this.props.handleDAlbum(this.props.selectedAlbum.id)}>Delete</button><br/>
+                <form className="form" onSubmit={this.handleSubmit}>
+                <label>Album Name:</label> <br/>
                     <input type="text" name="album_name" value={this.state.album_name} onChange={this.handleChange} />
-                    <button type="submit">Submit</button>
-                    <button onClick={() => this.props.handleDAlbum(this.props.selectedAlbum.id)}>Delete</button>
+                    <button className="button button-size"  type="submit">Submit</button>
                 </form>
             </div>
         )

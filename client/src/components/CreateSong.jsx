@@ -27,13 +27,13 @@ class CreateSong extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Add Song</h1>
-                <form onSubmit={this.handleSubmit}>
+            <div className="container">
+                <h1 className="edit-subtitle">Add Song</h1>
+                <form  className="form" onSubmit={this.handleSubmit}>
                     <label>Song Name:</label>
-                    <input type="text" name="song_name" value={this.state.song_name} onChange={this.handleChange} />
-                    <label>Song:</label>
-                    <input type="text" name="song_url" value={this.state.song_url} onChange={this.handleChange}/>
+                    <input type="text" name="song_name" value={this.state.song_name} onChange={this.handleChange} /><br/>
+                    <label>Song url:</label>
+                    <input type="text" name="song_url" value={this.state.song_url} onChange={this.handleChange}/><br/>
                     <button className="button" type="submit">Submit</button>
                 </form>
             </div>

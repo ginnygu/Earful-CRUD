@@ -25,12 +25,12 @@ class CreateArtist extends Component {
 
     render(){
         return(
-            <div>
-                <h1>Add Artist</h1>
-                <form onSubmit={this.handleSubmit}>
-                <label>Artist Name:</label>
+            <div className="container">
+                <h1 className="edit-subtitle">Add Artist</h1>
+                <form className="form" onSubmit={this.handleSubmit}>
+                <label>Artist Name:</label><br/>
                     <input type="text" name="artist_name" value={this.state.artist_name} onChange={this.handleChange} />
-                    <button type="submit">Submit</button>
+                    <button className="button button-size" type="submit">Submit</button>
                 </form>
             </div>
         )
