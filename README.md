@@ -43,7 +43,8 @@ A Ruby-on-Rails and React.js app that lets Indie Artists create their own album 
 ```
 <div className="container">
                 <span className="edit-subtitle">Edit Song</span>
-                <button className="button button-size" onClick={() =>         this.props.handleDSong(this.props.selectedSong.id)}>Delete</button>
+                <button className="button button-size" onClick={() => 
+                this.props.handleDSong(this.props.selectedSong.id)}>Delete</button>
                 <form className="form" onSubmit={this.handleSubmit}>
                 <label>Album Name:</label><br/>
                     <input type="text" name="song_name" value={this.state.song_name} onChange={this.handleChange} />
