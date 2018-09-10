@@ -27,3 +27,11 @@ body{
   font-size: 12px;
 }
 
+.instruction{
+  padding-top: 1.8em;
+  padding-left: 3em;
+}
+
+.instruction p{
+  padding-top: .5em;
+}
