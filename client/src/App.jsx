@@ -56,6 +56,7 @@ class App extends Component {
     this.updateSong = this.updateSong.bind(this);
     this.selectSong = this.selectSong.bind(this);
     this.handleDSong = this.handleDSong.bind(this);
+    this.backToArtist = this.backToArtist.bind(this);
   }
 
   componentDidMount() {
@@ -138,8 +139,7 @@ class App extends Component {
       .then((data) => {
         this.setState({
           albums: data.albums,
-          selectedArtist: '',
-          currentView: 'Artists',
+          currentView: 'Albums',
         });
       });
   }
@@ -198,8 +198,7 @@ class App extends Component {
       .then((data) => {
         this.setState({
           songs: data.songs,
-          selectedAlbum: '',
-          currentView: 'Home',
+          currentView: 'Songs',
         });
       });
   }
@@ -219,6 +218,12 @@ class App extends Component {
       selectedSong: song,
       currentView: 'Edit Song',
     });
+  }
+
+  backToArtist() {
+    this.setState({
+      currentView: 'Artists',
+    })
   }
 
   handleDSong(id) {
@@ -269,6 +274,7 @@ class App extends Component {
             albumCreate={this.albumCreate}
             selectedAlbum={selectedAlbum}
             updatingAlbum={this.updatingAlbum}
+            backToArtist={this.backToArtist}
           />
         );
         break;
@@ -278,6 +284,7 @@ class App extends Component {
           <GetSongs
             key={songs.id}
             selectedArtist={selectedArtist}
+            selectArtist={this.selectArtist}
             selectedAlbum={selectedAlbum}
             songs={songs}
             album={album}
@@ -289,6 +296,7 @@ class App extends Component {
       case 'Add Artist':
         return (
           <CreateArtist
+            backToArtist={this.backToArtist}
             onSubmit={this.createArtist}
           />
         );
@@ -308,6 +316,8 @@ class App extends Component {
           <CreateAlbum
             onSubmit={this.createAlbum}
             selectedArtist={selectedArtist}
+            selectArtist={this.selectArtist}
+
           />
         );
         break;
@@ -328,6 +338,7 @@ class App extends Component {
           <CreateSong
             onSubmit={this.createSong}
             selectedAlbum={selectedAlbum}
+            selectAlbum={this.selectAlbum}
           />
         );
         break;
@@ -337,14 +348,14 @@ class App extends Component {
         );
         break;
       case 'Edit Song':
-      const song = songs.find(song => song.id === selectedSong.id);
+        const song = songs.find(song => song.id === selectedSong.id);
         return (
           <EditSong
-          onSubmit={this.updateSong}
-          selectedSong={selectedSong}
-          songs={song}
-          selectedAlbum={selectedAlbum}
-          handleDSong={this.handleDSong}
+            onSubmit={this.updateSong}
+            selectedSong={selectedSong}
+            songs={song}
+            selectedAlbum={selectedAlbum}
+            handleDSong={this.handleDSong}
           />
         )
 

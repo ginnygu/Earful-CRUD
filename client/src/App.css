@@ -35,3 +35,8 @@ body{
 .instruction p{
   padding-top: .5em;
 }
+
+.back-button{
+  padding-bottom: 1em;
+  cursor: pointer;
+}

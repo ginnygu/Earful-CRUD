@@ -7,9 +7,13 @@ function GetAlbums(props) {
                 <h1 className="title album-name">{props.selectedArtist.artist_name}</h1>
                 <button className="subtitle button" onClick={(e) => {
                     e.preventDefault();
-                    props.albumCreate(props.artist.id)
+                    props.albumCreate(props.artist)
                 }}>Add Album</button>
             </div>
+            <button className="button back-button" onClick= {(e)=> {
+                e.preventDefault();
+                props.backToArtist()
+            }}>back</button>
             {props.selectedArtist.id && (
 
                 <div>

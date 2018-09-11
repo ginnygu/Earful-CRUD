@@ -5,7 +5,7 @@ class CreateAlbum extends Component {
         super(props);
         this.state = {
             album_name: '',
-            artist_id: this.props.selectedArtist
+            artist_id: this.props.selectedArtist.id
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -27,7 +27,11 @@ class CreateAlbum extends Component {
     render(){
         return(
             <div className="container">
-                <h1 className="edit-subtitle">Add Album</h1>
+                <span className="edit-subtitle">Add Album</span>
+                <button className="button back-button" onClick= {(e)=> {
+                e.preventDefault();
+                this.props.selectArtist(this.props.selectedArtist)
+            }}>back</button>
                 <form  className="form" onSubmit={this.handleSubmit}>
                 <label>Album Name:</label><br/>
                     <input type="text" name="album_name" value={this.state.album_name} onChange={this.handleChange} />

@@ -26,7 +26,11 @@ class CreateArtist extends Component {
     render(){
         return(
             <div className="container">
-                <h1 className="edit-subtitle">Add Artist</h1>
+                <span className="edit-subtitle">Add Artist</span>
+                <button className="button back-button" onClick= {(e)=> {
+                e.preventDefault();
+                this.props.backToArtist()
+            }}>back</button>
                 <form className="form" onSubmit={this.handleSubmit}>
                 <label>Artist Name:</label><br/>
                     <input type="text" name="artist_name" value={this.state.artist_name} onChange={this.handleChange} />

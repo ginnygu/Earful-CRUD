@@ -8,9 +8,13 @@ function GetSongs(props) {
                 <button className="subtitle button"
                     onClick={(e) => {
                         e.preventDefault();
-                        props.songCreate(props.selectedAlbum.id)
+                        props.songCreate(props.selectedAlbum)
                     }}>Add Song</button>
             </div>
+            <button className="button back-button" onClick= {(e)=> {
+                e.preventDefault();
+                props.selectArtist(props.selectedArtist)
+            }}>back</button>
             {props.selectedAlbum.id && (
                 <div>
                     {props.songs.map((song) => {

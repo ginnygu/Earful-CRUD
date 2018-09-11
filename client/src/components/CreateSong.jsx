@@ -6,7 +6,7 @@ class CreateSong extends Component {
         this.state = {
             song_name: '',
             song_url: '',
-            album_id: this.props.selectedAlbum
+            album_id: this.props.selectedAlbum.id
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -28,7 +28,11 @@ class CreateSong extends Component {
     render() {
         return (
             <div className="container">
-                <h1 className="edit-subtitle">Add Song</h1>
+                <span className="edit-subtitle">Add Song</span>
+                <button className="button back-button" onClick= {(e)=> {
+                e.preventDefault();
+                this.props.selectAlbum(this.props.selectedAlbum)
+            }}>back</button>
                 <form  className="form" onSubmit={this.handleSubmit}>
                     <label>Song Name:</label>
                     <input type="text" name="song_name" value={this.state.song_name} onChange={this.handleChange} /><br/>
