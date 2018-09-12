@@ -53,6 +53,8 @@ A Ruby-on-Rails and React.js app that lets Indie Artists create their own album 
             </div>
 ```
 
-
+### Credits
+- GA Ruby on Rails classwork, homework provided help
+- GA React.js classwork, homework and project 3 provided help
 
 
