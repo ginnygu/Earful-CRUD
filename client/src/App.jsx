@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css';
-import 'font-awesome/css/font-awesome.min.css'
 import './App.css';
 import GetArtists from './components/GetArtists';
 import GetAlbums from './components/GetAlbums';
