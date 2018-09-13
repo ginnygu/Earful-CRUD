@@ -1,6 +1,6 @@
 # Earful-CRUD
 
-A Ruby-on-Rails and React.js app that lets Indie Artists create their own album and upload their songs.
+A Ruby-on-Rails and React.js app that lets Indie Artists create their own albums and upload their songs. They can share the link for others to listen to their songs.
 
 ### User stories
 - As a user, I want to be able to create my artist and album
