@@ -2,7 +2,7 @@ import React from 'react';
 
 function Home() {
     return (
-        <div className="container">
+        <div className="container landing">
             <h1 className="title">Welcome to Earful</h1>
             <p className="subtitle">Welcome artists! Share your music in this app with others like your self! </p>
             <div className="instruction">

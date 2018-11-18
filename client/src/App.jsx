@@ -307,6 +307,7 @@ class App extends Component {
             onSubmit={this.updateArtist}
             artists={edits}
             handleDArtist={this.handleDArtist}
+            FontAwesomeIcon = {this.FontAwesomeIcon}
           />
         );
         break;

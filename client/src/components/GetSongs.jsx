@@ -22,11 +22,11 @@ function GetSongs(props) {
                             return (
                                 <div key={song.id}>
                                     <span className="edit-subtitle">{song.song_name}</span>
-                                    <button className="button button-size"
+                                    <button className="button button-size fa fa-edit"
                                             onClick={(e) => {
                                             e.preventDefault();
                                             props.selectSong(song)
-                                        }}>Edit Song Name</button><br/>
+                                        }}></button><br/>
                                     <div className="song-list">
                                         <audio controls src={song.song_url}></audio><br/>
                                     </div>

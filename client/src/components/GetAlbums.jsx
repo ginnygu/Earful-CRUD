@@ -10,10 +10,10 @@ function GetAlbums(props) {
                     props.albumCreate(props.artist)
                 }}>Add Album</button>
             </div>
-            <button className="button back-button" onClick= {(e)=> {
+            <button className="button back-button fa fa-arrow-left" onClick= {(e)=> {
                 e.preventDefault();
                 props.backToArtist()
-            }}>back</button>
+            }}></button>
             {props.selectedArtist.id && (
 
                 <div>
@@ -21,15 +21,17 @@ function GetAlbums(props) {
                         if (props.selectedArtist.id === album.artist_id) {
                             return (
                                 <div key={album.id}>
-                                    <p className="title">{album.album_name}</p>
-                                    <button className="button" onClick={(e) => {
-                                        e.preventDefault();
-                                        props.updatingAlbum(album)
-                                    }}>Edit Album</button>
-                                    <button className="button" onClick={(e) => {
-                                        e.preventDefault();
-                                        props.selectAlbum(album)
-                                    }}>show songs</button>
+                                    <p className="artist">{album.album_name} 
+                                        <button className="button fa fa-edit" onClick={(e) => {
+                                            e.preventDefault();
+                                            props.updatingAlbum(album)
+                                        }}></button>
+                                        <button className="button" onClick={(e) => {
+                                            e.preventDefault();
+                                            props.selectAlbum(album)
+                                        }}>show songs</button>
+                                    </p>
+
                                 </div>
                             )
                         }

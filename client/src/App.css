@@ -3,6 +3,17 @@ body{
   height: 100vh;
   width: 100vw;
 }
+.landing{
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+}
+.artist{
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+.artist button{
+  font-size: .6em;
+}
 .song-list{
   margin: 2.8em;
 }
@@ -29,7 +40,6 @@ body{
 
 .instruction{
   padding-top: 1.8em;
-  padding-left: 3em;
 }
 
 .instruction p{
