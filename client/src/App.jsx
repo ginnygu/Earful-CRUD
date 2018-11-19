@@ -58,19 +58,35 @@ class App extends Component {
     this.backToArtist = this.backToArtist.bind(this);
   }
 
-  componentDidMount() {
-    fetchArtists()
-      .then((data) => {
-        this.setState({ artists: data.artists });
-      });
-    fetchAlbums()
-      .then((data) => {
-        this.setState({ albums: data.albums });
-      });
-    fetchSongs()
-      .then((data) => {
-        this.setState({ songs: data.songs });
-      });
+  async componentDidMount() {
+    try {
+      await fetchArtists()
+        .then((data) => {
+          this.setState({ artists: data.artists });
+        })
+
+    }
+    catch (error) {
+      console.log(error)
+    };
+    try {
+      await fetchAlbums()
+        .then((data) => {
+          this.setState({ albums: data.albums });
+        })
+    }
+    catch (error) {
+      console.log(error)
+    };
+    try {
+      await fetchSongs()
+        .then((data) => {
+          this.setState({ songs: data.songs });
+        })
+    }
+    catch (error) {
+      console.log(error);
+    };
   }
 
   createArtist(artist) {
@@ -307,7 +323,7 @@ class App extends Component {
             onSubmit={this.updateArtist}
             artists={edits}
             handleDArtist={this.handleDArtist}
-            FontAwesomeIcon = {this.FontAwesomeIcon}
+            FontAwesomeIcon={this.FontAwesomeIcon}
           />
         );
         break;

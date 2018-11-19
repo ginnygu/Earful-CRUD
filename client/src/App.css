@@ -1,3 +1,4 @@
+
 body{
   background: url('./images/bg.jpeg')fixed;
   height: 100vh;
@@ -49,4 +50,12 @@ body{
 .back-button{
   padding-bottom: 1em;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px){
+  .container{ display: block;}
+  * {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
 }
