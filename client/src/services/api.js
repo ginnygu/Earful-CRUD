@@ -2,7 +2,13 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 // artist fetch
 function fetchArtists() {
-  return fetch(`${BASE_URL}/artists`)
+  const opts = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  return fetch(`${BASE_URL}/artists`, opts)
     .then(res => res.json());
 }
 

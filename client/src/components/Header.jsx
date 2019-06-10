@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Header(props) {
-    const { links } = props;
+    const { links } = props.links;
     return (
         <div className="container">
             <div className="hero-body tabs is-centered">
