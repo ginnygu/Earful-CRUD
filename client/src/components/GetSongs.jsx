@@ -33,6 +33,7 @@ function GetSongs(props) {
                                 </div>
                             )
                         }
+                        return
                     })
                     }
 

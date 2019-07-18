@@ -35,6 +35,7 @@ function GetAlbums(props) {
                                 </div>
                             )
                         }
+                        return
                     })
                     }
 

@@ -276,7 +276,6 @@ class App extends Component {
             selectArtist={this.selectArtist}
           />
         );
-        break;
       case 'Albums':
         const artist = artists.find(artist => artist.id === selectedArtist.id);
         return (
@@ -292,7 +291,6 @@ class App extends Component {
             backToArtist={this.backToArtist}
           />
         );
-        break;
       case 'Songs':
         const album = albums.find(album => album.id === selectedAlbum.id);
         return (
@@ -307,7 +305,6 @@ class App extends Component {
             selectSong={this.selectSong}
           />
         );
-        break;
       case 'Add Artist':
         return (
           <CreateArtist
@@ -315,7 +312,6 @@ class App extends Component {
             onSubmit={this.createArtist}
           />
         );
-        break;
       case 'Edit Artist':
         const edits = artists.find(artist => artist.id === selectedArtist.id);
         return (
@@ -326,7 +322,6 @@ class App extends Component {
             FontAwesomeIcon={this.FontAwesomeIcon}
           />
         );
-        break;
       case 'Create Album':
         return (
           <CreateAlbum
@@ -336,7 +331,6 @@ class App extends Component {
 
           />
         );
-        break;
       case 'Edit Album':
         const albumEdit = albums.find(album => album.id === selectedAlbum.id);
         return (
@@ -348,7 +342,6 @@ class App extends Component {
             handleDAlbum={this.handleDAlbum}
           />
         );
-        break;
       case 'Create Song':
         return (
           <CreateSong
@@ -357,12 +350,10 @@ class App extends Component {
             selectAlbum={this.selectAlbum}
           />
         );
-        break;
-      case 'Home':
+      default :
         return (
           <Home />
         );
-        break;
       case 'Edit Song':
         const song = songs.find(song => song.id === selectedSong.id);
         return (
@@ -394,7 +385,7 @@ class App extends Component {
       <div>
         <Header
           onClick={this.handleClick.bind(this)}
-          links={links}
+          links={ links }
         />
         {this.whichToRender()}
       </div>
